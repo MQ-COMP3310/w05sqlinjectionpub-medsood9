@@ -70,6 +70,8 @@ public class SQLiteConnectionManager {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Error! SQL Exception occured", e);
+
         }
     }
 
@@ -89,6 +91,8 @@ public class SQLiteConnectionManager {
                 }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                logger.log(Level.SEVERE, "Error! File location could not be found", e);
+
                 return false;
             }
         }
@@ -102,6 +106,8 @@ public class SQLiteConnectionManager {
      */
     public boolean createWordleTables() {
         if (databaseURL.equals("")) {
+            logger.log(Level.WARNING, "Error! Table structure not created.");
+
             return false;
         } else {
             try (Connection conn = DriverManager.getConnection(databaseURL);
@@ -114,6 +120,7 @@ public class SQLiteConnectionManager {
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+                logger.log(Level.SEVERE, "Error! SQL Exception occured.", e);
                 return false;
             }
         }
@@ -135,6 +142,7 @@ public class SQLiteConnectionManager {
                 pstmt.setString(2, word);
             pstmt.executeUpdate();
         } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error! SQL Exception occured.", e);
             System.out.println(e.getMessage());
         }
 
@@ -162,6 +170,7 @@ public class SQLiteConnectionManager {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            logger.log(Level.SEVERE, "Error! SQL Exception occured.", e);
             return false;
         }
 
